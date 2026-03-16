@@ -12,7 +12,8 @@ const Login = () => {
     password: ""
   });
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault();
     if (Object.values(loginForm).some((data) => data === "")) {
       alert("All fields are required!");
       return;
@@ -50,13 +51,13 @@ const Login = () => {
             <p className="text-gray-500 text-sm mt-1">Welcome back! Sign in to continue.</p>
           </hgroup>
 
+          <form onSubmit={handleLogin}>
           <InputField
             label="Username"
             type="text"
             placeholder="Enter your username"
             value={loginForm.username}
             onChange={(e) => setLoginForm({ ...loginForm, username: e.target.value })}
-            onKeyDown={(e) => e.key === "Enter" && handleLogin()}
           />
           <InputField
             label="Password"
@@ -64,12 +65,12 @@ const Login = () => {
             placeholder="Enter your password"
             value={loginForm.password}
             onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
-            onKeyDown={(e) => e.key === "Enter" && handleLogin()}
           />
 
           <div className="mt-2">
-            <PrimaryButton onClick={handleLogin}>Sign In →</PrimaryButton>
+            <PrimaryButton type="submit">Sign In →</PrimaryButton>
           </div>
+          </form>
 
           <p className="text-center mt-5 text-sm text-gray-500">
             Don't have an account?{" "}

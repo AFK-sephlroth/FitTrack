@@ -17,7 +17,8 @@ const Signup = () => {
     confirmPassword: ""
   });
 
-  const handleSignup = async () => {
+  const handleSignup = async (e) => {
+    e.preventDefault();
     try {
       if (Object.values(signupForm).some((data) => data !== "")) {
         if (signupForm.password === signupForm.confirmPassword) {
@@ -73,13 +74,13 @@ const Signup = () => {
             <p className="text-gray-500 text-sm mt-1">Create your account to get started.</p>
           </header>
 
+          <form onSubmit={handleSignup}>
           <InputField
             label="Full Name"
             type="text"
             placeholder="John Doe"
             value={signupForm.fullname}
             onChange={(e) => setSignupForm({ ...signupForm, fullname: e.target.value })}
-            onKeyDown={(e) => e.key === "Enter" && handleSignup()}
           />
           <InputField
             label="Age"
@@ -87,7 +88,6 @@ const Signup = () => {
             placeholder="23"
             value={signupForm.age}
             onChange={(e) => setSignupForm({ ...signupForm, age: e.target.value })}
-            onKeyDown={(e) => e.key === "Enter" && handleSignup()}
           />
           <InputField
             label="Username"
@@ -95,7 +95,6 @@ const Signup = () => {
             placeholder="john_doe"
             value={signupForm.username}
             onChange={(e) => setSignupForm({ ...signupForm, username: e.target.value })}
-            onKeyDown={(e) => e.key === "Enter" && handleSignup()}
           />
           <InputField
             label="Password"
@@ -103,7 +102,6 @@ const Signup = () => {
             placeholder="Create a password"
             value={signupForm.password}
             onChange={(e) => setSignupForm({ ...signupForm, password: e.target.value })}
-            onKeyDown={(e) => e.key === "Enter" && handleSignup()}
           />
           <InputField
             label="Confirm Password"
@@ -111,14 +109,14 @@ const Signup = () => {
             placeholder="Repeat your password"
             value={signupForm.confirmPassword}
             onChange={(e) => setSignupForm({ ...signupForm, confirmPassword: e.target.value })}
-            onKeyDown={(e) => e.key === "Enter" && handleSignup()}
           />
 
           <div className="mt-2">
-            <PrimaryButton onClick={handleSignup}>
+            <PrimaryButton type="submit">
               Create Account →
             </PrimaryButton>
           </div>
+          </form>
 
           <p className="text-center mt-5 text-sm text-gray-500">
             Already have an account?{" "}
