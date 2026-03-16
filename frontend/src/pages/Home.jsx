@@ -20,6 +20,15 @@ const Home = () => {
     sets: 3
   });
 
+  useEffect(() => {
+    const saved = localStorage.getItem("fittrack_workouts");
+    if (saved) setWorkouts(JSON.parse(saved));
+  }, []); 
+  
+  useEffect(() => {
+    localStorage.setItem("fittrack_workouts", JSON.stringify(workouts));
+  }, [workouts]);
+
   // ── Calendar Events  { "YYYY-MM-DD": ["event title", ...] } ───
   const [events, setEvents]                       = useState({});
   const [selectedDateKey, setSelectedDateKey]     = useState(null);
@@ -106,7 +115,7 @@ const Home = () => {
                 <button onClick={addGoal} className="flex-1 bg-liinear-to-r from-orange-400 to-orange-600 text-white font-semibold py-2.5 rounded-xl text-sm hover:shadow-md transition-all">
                   Add Goal
                 </button>
-                <button onClick={() => setShowGoalModal(false)} className="bg-white text-orange-500 border-2 border-orange-400 font-semibold px-4 py-2 rounded-xl text-sm hover:bg-orange-50 transition-all">
+                <button onClick={() => setShowGoalModal(false)} className="bg-white text-orange-500 border-2 border-orange-400 font-semibold px-4 py-2 rounded-xl text-sm hover:bg-orange-50 transition-all cursor-pointer">
                   Cancel
                 </button>
               </div>
@@ -139,11 +148,11 @@ const Home = () => {
               <div className="flex gap-2.5">
                 <input className={`${inputCls} flex-1`} placeholder="New event (e.g. Leg Day)" value={newEvent}
                   onChange={(e) => setNewEvent(e.target.value)} onKeyDown={(e) => e.key === "Enter" && addEvent()} />
-                <button onClick={addEvent} className="bg-linear-to-r from-orange-400 to-orange-600 text-white font-semibold px-4 rounded-xl text-sm whitespace-nowrap hover:shadow-md transition-all">
+                <button onClick={addEvent} className="bg-linear-to-r from-orange-400 to-orange-600 text-white font-semibold px-4 rounded-xl text-sm whitespace-nowrap hover:shadow-md transition-all cursor-pointer">
                   + Add
                 </button>
               </div>
-              <button onClick={() => { setShowEventModal(false); setNewEvent(""); }} className="w-full mt-3.5 bg-white text-orange-500 border-2 border-orange-400 font-semibold py-2.5 rounded-xl text-sm hover:bg-orange-50 transition-all">
+              <button onClick={() => { setShowEventModal(false); setNewEvent(""); }} className="w-full mt-3.5 bg-white text-orange-500 border-2 border-orange-400 font-semibold py-2.5 rounded-xl text-sm hover:bg-orange-50 transition-all cursor-pointer">
                 Done
               </button>
             </Card>
@@ -156,7 +165,7 @@ const Home = () => {
           <Card>
             <header className="flex items-center justify-between mb-4">
               <h2 className="text-base font-bold text-gray-800" style={{ fontFamily: "'Sora', sans-serif" }}>🎯 Goals</h2>
-              <button onClick={() => setShowGoalModal(true)} className="bg-linear-to-r from-orange-400 to-orange-600 text-white text-xs font-semibold px-3.5 py-1.5 rounded-lg hover:shadow-md transition-all">
+              <button onClick={() => setShowGoalModal(true)} className="bg-linear-to-r from-orange-400 to-orange-600 text-white text-xs font-semibold px-3.5 py-1.5 rounded-lg hover:shadow-md transition-all cursor-pointer">
                 + Set Goals
               </button>
             </header>
@@ -220,7 +229,7 @@ const Home = () => {
                 onChange={(e) => setWorkoutForm({ ...workoutForm, sets: Number(e.target.value) })}
               />
             </div>
-            <button onClick={addWorkout} className="bg-linear-to-r from-orange-400 to-orange-600 text-white font-semibold px-5 py-2.5 rounded-xl text-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
+            <button onClick={addWorkout} className="bg-linear-to-r from-orange-400 to-orange-600 text-white font-semibold px-5 py-2.5 rounded-xl text-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer">
               + Log Exercise
             </button>
           </Card>
@@ -275,7 +284,7 @@ const Home = () => {
                   value={feedback} onChange={(e) => setFeedback(e.target.value)}
                 />
               </div>
-              <button onClick={submitFeedback} className="bg-linear-to-r from-orange-400 to-orange-600 text-white font-semibold px-7 py-2.5 rounded-xl text-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
+              <button onClick={submitFeedback} className="bg-linear-to-r from-orange-400 to-orange-600 text-white font-semibold px-7 py-2.5 rounded-xl text-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer">
                 Submit Feedback
               </button>
             </>

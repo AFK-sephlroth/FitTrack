@@ -3,10 +3,16 @@ import { useNavigate, useLocation } from "react-router-dom";
 const NavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const user = JSON.parse(localStorage.getItem("fittrack_user") || "{}");
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const stored = JSON.parse(sessionStorage.getItem("fittrack_user") || "{}");
+    setUser(stored);
+  }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("fittrack_user");
+    sessionStorage.removeItem("fittrack_user");
+    sessionStorage.removeItem("token");
     navigate("/");
   };
 
@@ -17,7 +23,7 @@ const NavBar = () => {
 
       {/* Left: Logo + Welcome */}
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center text-lg shrink-0">
+        <div className="w-10 h-10 bg-linear-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center text-lg shrink-0">
           🏋️
         </div>
         <div>

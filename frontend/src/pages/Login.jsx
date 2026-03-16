@@ -58,6 +58,7 @@ const Login = () => {
             placeholder="Enter your username"
             value={loginForm.username}
             onChange={(e) => setLoginForm({ ...loginForm, username: e.target.value })}
+            required
           />
           <InputField
             label="Password"
@@ -65,6 +66,7 @@ const Login = () => {
             placeholder="Enter your password"
             value={loginForm.password}
             onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
+            required
           />
 
           <div className="mt-2">

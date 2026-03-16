@@ -81,6 +81,7 @@ const Signup = () => {
             placeholder="John Doe"
             value={signupForm.fullname}
             onChange={(e) => setSignupForm({ ...signupForm, fullname: e.target.value })}
+            required
           />
           <InputField
             label="Age"
@@ -88,6 +89,7 @@ const Signup = () => {
             placeholder="23"
             value={signupForm.age}
             onChange={(e) => setSignupForm({ ...signupForm, age: e.target.value })}
+            required
           />
           <InputField
             label="Username"
@@ -95,13 +97,15 @@ const Signup = () => {
             placeholder="john_doe"
             value={signupForm.username}
             onChange={(e) => setSignupForm({ ...signupForm, username: e.target.value })}
+            required
           />
           <InputField
             label="Password"
             type="password"
-            placeholder="Create a password"
-            value={signupForm.password}
-            onChange={(e) => setSignupForm({ ...signupForm, password: e.target.value })}
+            placeholder="Enter your password"
+            value={loginForm.password}
+            onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
+            required
           />
           <InputField
             label="Confirm Password"
@@ -109,6 +113,7 @@ const Signup = () => {
             placeholder="Repeat your password"
             value={signupForm.confirmPassword}
             onChange={(e) => setSignupForm({ ...signupForm, confirmPassword: e.target.value })}
+            required
           />
 
           <div className="mt-2">

@@ -1,6 +1,5 @@
 const PrimaryButton = ({
-  children,           
-  onClick,            
+  children,                       
   disabled = false,   
   fullWidth = true,   
   type = "button"     
@@ -14,7 +13,7 @@ const PrimaryButton = ({
         bg-linear-to-r from-orange-400 to-orange-600
         text-white font-semibold py-3 px-6 rounded-xl text-sm
         transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-orange-200
-        active:translate-y-0 disabled:opacity-60
+        active:translate-y-0 disabled:opacity-60 cursor-pointer
       `}
     >
       {children}  
