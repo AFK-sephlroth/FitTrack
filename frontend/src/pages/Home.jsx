@@ -88,7 +88,7 @@ const Home = () => {
     <div className="min-h-screen bg-orange-50">
       <NavBar />
 
-      <main className="px-8 py-7 max-w-screen-xl mx-auto">
+      <main className="px-8 py-7 max-w-7xl mx-auto">
 
         {/* ── Goal Modal ── */}
         {showGoalModal && (
@@ -103,7 +103,7 @@ const Home = () => {
                 onKeyDown={(e) => e.key === "Enter" && addGoal()} autoFocus
               />
               <div className="flex gap-2.5 mt-3.5">
-                <button onClick={addGoal} className="flex-1 bg-gradient-to-r from-orange-400 to-orange-600 text-white font-semibold py-2.5 rounded-xl text-sm hover:shadow-md transition-all">
+                <button onClick={addGoal} className="flex-1 bg-liinear-to-r from-orange-400 to-orange-600 text-white font-semibold py-2.5 rounded-xl text-sm hover:shadow-md transition-all">
                   Add Goal
                 </button>
                 <button onClick={() => setShowGoalModal(false)} className="bg-white text-orange-500 border-2 border-orange-400 font-semibold px-4 py-2 rounded-xl text-sm hover:bg-orange-50 transition-all">
@@ -117,7 +117,7 @@ const Home = () => {
         {/* ── Event Modal ── */}
         {showEventModal && (
           <div className="fixed inset-0 bg-black/45 z-50 flex items-center justify-center" onMouseDown={(e) => { if (e.target === e.currentTarget) { setShowEventModal(false); setNewEvent(""); } }}>
-            <Card className="w-[420px] p-7">
+            <Card className="w-105 p-7">
               <h3 className="font-bold text-gray-800 mb-1" style={{ fontFamily: "'Sora', sans-serif" }}>
                 📅 {selectedDateLabel}
               </h3>
@@ -139,7 +139,7 @@ const Home = () => {
               <div className="flex gap-2.5">
                 <input className={`${inputCls} flex-1`} placeholder="New event (e.g. Leg Day)" value={newEvent}
                   onChange={(e) => setNewEvent(e.target.value)} onKeyDown={(e) => e.key === "Enter" && addEvent()} />
-                <button onClick={addEvent} className="bg-gradient-to-r from-orange-400 to-orange-600 text-white font-semibold px-4 rounded-xl text-sm whitespace-nowrap hover:shadow-md transition-all">
+                <button onClick={addEvent} className="bg-linear-to-r from-orange-400 to-orange-600 text-white font-semibold px-4 rounded-xl text-sm whitespace-nowrap hover:shadow-md transition-all">
                   + Add
                 </button>
               </div>
@@ -156,7 +156,7 @@ const Home = () => {
           <Card>
             <header className="flex items-center justify-between mb-4">
               <h2 className="text-base font-bold text-gray-800" style={{ fontFamily: "'Sora', sans-serif" }}>🎯 Goals</h2>
-              <button onClick={() => setShowGoalModal(true)} className="bg-gradient-to-r from-orange-400 to-orange-600 text-white text-xs font-semibold px-3.5 py-1.5 rounded-lg hover:shadow-md transition-all">
+              <button onClick={() => setShowGoalModal(true)} className="bg-linear-to-r from-orange-400 to-orange-600 text-white text-xs font-semibold px-3.5 py-1.5 rounded-lg hover:shadow-md transition-all">
                 + Set Goals
               </button>
             </header>
@@ -220,7 +220,7 @@ const Home = () => {
                 onChange={(e) => setWorkoutForm({ ...workoutForm, sets: Number(e.target.value) })}
               />
             </div>
-            <button onClick={addWorkout} className="bg-gradient-to-r from-orange-400 to-orange-600 text-white font-semibold px-5 py-2.5 rounded-xl text-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
+            <button onClick={addWorkout} className="bg-linear-to-r from-orange-400 to-orange-600 text-white font-semibold px-5 py-2.5 rounded-xl text-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
               + Log Exercise
             </button>
           </Card>
@@ -229,7 +229,7 @@ const Home = () => {
             <h2 className="text-base font-bold text-gray-800 mb-4" style={{ fontFamily: "'Sora', sans-serif" }}>💪 Today's Workout</h2>
             <div className="flex gap-3.5 items-start">
               <div
-                className="shrink-0 w-[88px] bg-gradient-to-b from-orange-400 to-orange-600 rounded-2xl flex flex-col items-center justify-center gap-1 shadow-lg shadow-orange-200 py-4 px-2"
+                className="shrink-0 w-22 bg-linear-to-b from-orange-400 to-orange-600 rounded-2xl flex flex-col items-center justify-center gap-1 shadow-lg shadow-orange-200 py-4 px-2"
                 style={{ minHeight: workouts.length > 0 ? workouts.length * 58 : 80 }}
               >
                 <span className="text-white text-2xl font-black leading-none">{totalSets}</span>
@@ -239,7 +239,7 @@ const Home = () => {
                 {workouts.map((w, i) => (
                   <div key={i} className="flex items-center justify-between px-3.5 py-2.5 mb-2 bg-orange-50 rounded-xl border border-orange-100">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-6 h-6 bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg flex items-center justify-center text-white text-xs font-bold shrink-0">{i + 1}</div>
+                      <div className="w-6 h-6 bg-linear-to-br from-orange-400 to-orange-600 rounded-lg flex items-center justify-center text-white text-xs font-bold shrink-0">{i + 1}</div>
                       <span className="text-sm font-medium text-gray-800">{w.name}</span>
                     </div>
                     <span className="text-xs text-gray-500">{w.reps}r × {w.sets}s</span>
@@ -270,12 +270,12 @@ const Home = () => {
               <div className="mt-4 mb-4">
                 <label className="block text-xs font-semibold text-gray-600 mb-1.5">Description (optional)</label>
                 <textarea
-                  className={`${inputCls} resize-y min-h-[80px]`} rows={3}
+                  className={`${inputCls} resize-y min-h-20`} rows={3}
                   placeholder="Tell us about your workout…"
                   value={feedback} onChange={(e) => setFeedback(e.target.value)}
                 />
               </div>
-              <button onClick={submitFeedback} className="bg-gradient-to-r from-orange-400 to-orange-600 text-white font-semibold px-7 py-2.5 rounded-xl text-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
+              <button onClick={submitFeedback} className="bg-linear-to-r from-orange-400 to-orange-600 text-white font-semibold px-7 py-2.5 rounded-xl text-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
                 Submit Feedback
               </button>
             </>

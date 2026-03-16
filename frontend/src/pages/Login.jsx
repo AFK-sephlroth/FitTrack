@@ -29,12 +29,12 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 to-orange-100 p-5">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-orange-50 to-orange-100 p-5">
       <div className="w-full max-w-md">
 
         {/* Logo */}
         <header className="text-center mb-9">
-          <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4 shadow-lg shadow-orange-300">
+          <div className="w-16 h-16 bg-linear-to-br from-orange-400 to-orange-600 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4 shadow-lg shadow-orange-300">
             🏋️
           </div>
           <h1 className="text-3xl font-black text-gray-800" style={{ fontFamily: "'Sora', sans-serif" }}>
@@ -77,9 +77,6 @@ const Login = () => {
             <span onClick={() => navigate("/signup")} className="text-orange-500 font-semibold cursor-pointer underline">
               Sign up
             </span>
-          </p>
-          <p className="text-center mt-2 text-xs text-gray-400">
-            💡 Use <strong>admin / admin</strong> for admin view
           </p>
         </Card>
       </div>

@@ -25,7 +25,7 @@ const Admin = () => {
     <div className="min-h-screen bg-orange-50">
       <NavBar />
 
-      <main className="px-8 py-7 max-w-screen-xl mx-auto">
+      <main className="px-8 py-7 max-w-7xl mx-auto">
         <header className="mb-7">
           <h2 className="text-2xl font-black text-gray-800" style={{ fontFamily: "'Sora', sans-serif" }}>
             Admin Dashboard
@@ -35,7 +35,7 @@ const Admin = () => {
 
         {/* ── Users Table ── */}
         <Card as="section" className="overflow-hidden mb-6">
-          <header className="px-6 py-[18px] bg-gradient-to-r from-orange-400 to-orange-600 flex items-center gap-2.5">
+          <header className="px-6 py-4.5 bg-linear-to-r from-orange-400 to-orange-600 flex items-center gap-2.5">
             <span className="text-xl">👥</span>
             <h3 className="font-bold text-base text-white" style={{ fontFamily: "'Sora', sans-serif" }}>Users</h3>
             <span className="ml-auto bg-white/25 text-white text-xs font-bold px-3 py-0.5 rounded-full">
@@ -92,7 +92,7 @@ const Admin = () => {
 
         {/* ── Feedback Table ── */}
         <Card as="section" className="overflow-hidden">
-          <header className="px-6 py-[18px] bg-gradient-to-r from-gray-800 to-gray-700 flex items-center gap-2.5">
+          <header className="px-6 py-4.5 bg-linear-to-r from-gray-800 to-gray-700 flex items-center gap-2.5">
             <span className="text-xl">⭐</span>
             <h3 className="font-bold text-base text-white" style={{ fontFamily: "'Sora', sans-serif" }}>
               Rating / Feedback
