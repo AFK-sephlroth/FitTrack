@@ -17,8 +17,9 @@ const About = () => {
   const developers = [
     { initials: "ET", name: "Elijah Red Tingzon", avatarColor: "bg-orange-500" },
     { initials: "DR", name: "Daniel Refamonte",   avatarColor: "bg-sky-500"    },
-    { initials: "DM", name: "Danisa Medalio",     avatarColor: "bg-purple-500" },
+    { initials: "DM", name: "Danisa Medallo",     avatarColor: "bg-purple-500" },
     { initials: "CA", name: "CJ Alvarado",        avatarColor: "bg-green-500"  },
+    { initials: "HM", name: "Hanna Magbunay",     avatarColor: "bg-rose-500"   },
   ];
 
   const user     = JSON.parse(sessionStorage.getItem("fittrack_user") || "{}");
@@ -32,7 +33,7 @@ const About = () => {
 
         {/* Hero */}
         <section className="text-center mb-12">
-          <div className="w-20 h-20 bg-gradient-to-br from-orange-400 to-orange-600 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-5 shadow-xl shadow-orange-200">
+          <div className="w-20 h-20 bg-linear-to-br from-orange-400 to-orange-600 rounded-3xl flex items-center justify-center text-4xl mx-auto mb-5 shadow-xl shadow-orange-200">
             🏋️
           </div>
           <h1 className="text-4xl font-black text-gray-800" style={{ fontFamily: "'Sora', sans-serif" }}>

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import NavBar from "../components/NavBar";
 import MiniCalendar from "../components/MiniCalendar";
 import StarRating from "../components/StarRating";
