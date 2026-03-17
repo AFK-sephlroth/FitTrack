@@ -103,8 +103,8 @@ const Signup = () => {
             label="Password"
             type="password"
             placeholder="Enter your password"
-            value={loginForm.password}
-            onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
+            value={signupForm.password}
+            onChange={(e) => setSignupForm({ ...signupForm, password: e.target.value })}
             required
           />
           <InputField

@@ -1,4 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -55,7 +56,7 @@ const NavBar = () => {
         )}
         <button
           onClick={handleLogout}
-          className="ml-2 bg-gradient-to-r from-orange-400 to-orange-600 text-white text-sm font-semibold px-4 py-2 rounded-xl hover:shadow-lg hover:shadow-orange-200 transition-all border-none cursor-pointer"
+          className="ml-2 bg-linear-to-r from-orange-400 to-orange-600 text-white text-sm font-semibold px-4 py-2 rounded-xl hover:shadow-lg hover:shadow-orange-200 transition-all border-none cursor-pointer"
         >
           Logout
         </button>

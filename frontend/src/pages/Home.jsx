@@ -4,6 +4,7 @@ import MiniCalendar from "../components/MiniCalendar";
 import StarRating from "../components/StarRating";
 import Card from "../components/common/Card";
 import { defaultGoals, defaultWorkouts } from "../data/Mockdata";
+import { useState, useEffect } from "react";
 
 const Home = () => {
   // ── Goals ──────────────────────────────────────────────────────
