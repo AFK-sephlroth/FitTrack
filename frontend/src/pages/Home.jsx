@@ -5,22 +5,16 @@ import Card from "../components/common/Card";
 import { defaultGoals, defaultWorkouts } from "../data/Mockdata";
 import { useState, useEffect } from "react";
 
-<<<<<<< HEAD
-=======
 const BACKEND_PORT = import.meta.env.VITE_BACKEND_API_PORT;
 
->>>>>>> 4c1984f (update commit 3/24/2026)
 const Home = () => {
   // ── Goals ──────────────────────────────────────────────────────
   const [goals, setGoals]                 = useState(defaultGoals);
   const [checked, setChecked]             = useState(defaultGoals.map(() => false));
   const [showGoalModal, setShowGoalModal] = useState(false);
   const [newGoal, setNewGoal]             = useState("");
-<<<<<<< HEAD
-=======
   const [editGoalIdx, setEditGoalIdx]     = useState(null);
   const [editGoalVal, setEditGoalVal]     = useState("");
->>>>>>> 4c1984f (update commit 3/24/2026)
 
   // ── Workouts ───────────────────────────────────────────────────
   const [workouts, setWorkouts] = useState(defaultWorkouts);
@@ -29,10 +23,7 @@ const Home = () => {
     reps: 10,
     sets: 3
   });
-<<<<<<< HEAD
-=======
   const [editWorkoutIdx, setEditWorkoutIdx] = useState(null);
->>>>>>> 4c1984f (update commit 3/24/2026)
 
   useEffect(() => {
     const saved = localStorage.getItem("fittrack_workouts");
@@ -56,17 +47,6 @@ const Home = () => {
   const [submitted, setSubmitted] = useState(false);
 
   // ── Handlers ───────────────────────────────────────────────────
-<<<<<<< HEAD
-  const addGoal = () => {
-    if (!newGoal.trim()) return;
-    setGoals((g) => [...g, newGoal.trim()]);
-    setChecked((c) => [...c, false]);
-    setNewGoal("");
-    setShowGoalModal(false);
-  };
-
-  const addWorkout = () => {
-=======
   const addGoal = async () => {
     if (!newGoal.trim()) return;
     try {
@@ -125,15 +105,10 @@ const Home = () => {
   };
 
   const addWorkout = async () => {
->>>>>>> 4c1984f (update commit 3/24/2026)
     if (!workoutForm.name.trim()) {
       alert("Please enter an exercise name.");
       return;
     }
-<<<<<<< HEAD
-    setWorkouts((w) => [...w, { ...workoutForm }]);
-    setWorkoutForm({ name: "", reps: 10, sets: 3 });
-=======
     try {
       if (editWorkoutIdx !== null) {
         const payload = { ...workoutForm };
@@ -169,7 +144,6 @@ const Home = () => {
       console.log(error);
       alert(error);
     }
->>>>>>> 4c1984f (update commit 3/24/2026)
   };
 
   const handleDayClick = (key) => {
@@ -195,18 +169,11 @@ const Home = () => {
     });
   };
 
-<<<<<<< HEAD
-  const submitFeedback = () => {
-=======
   const submitFeedback = async () => {
->>>>>>> 4c1984f (update commit 3/24/2026)
     if (rating === 0) {
       alert("Please select a star rating first.");
       return;
     }
-<<<<<<< HEAD
-    setSubmitted(true);
-=======
     try {
       const payload = { rating, feedback };
       const response = await fetch(`${BACKEND_PORT}/api/feedback`, {
@@ -221,7 +188,6 @@ const Home = () => {
       console.log(error);
       alert(error);
     }
->>>>>>> 4c1984f (update commit 3/24/2026)
   };
 
   const totalSets = workouts.reduce((a, w) => a + w.sets, 0);
@@ -246,13 +212,8 @@ const Home = () => {
                 onKeyDown={(e) => e.key === "Enter" && addGoal()} autoFocus
               />
               <div className="flex gap-2.5 mt-3.5">
-<<<<<<< HEAD
-                <button onClick={addGoal} className="flex-1 bg-liinear-to-r from-orange-400 to-orange-600 text-white font-semibold py-2.5 rounded-xl text-sm hover:shadow-md transition-all">
-                  Add Goal
-=======
                 <button onClick={addGoal} className="flex-1 bg-linear-to-r from-orange-400 to-orange-600 text-white font-semibold py-2.5 rounded-xl text-sm hover:shadow-md transition-all cursor-pointer">
                   Submit
->>>>>>> 4c1984f (update commit 3/24/2026)
                 </button>
                 <button onClick={() => setShowGoalModal(false)} className="bg-white text-orange-500 border-2 border-orange-400 font-semibold px-4 py-2 rounded-xl text-sm hover:bg-orange-50 transition-all cursor-pointer">
                   Cancel
@@ -316,9 +277,6 @@ const Home = () => {
                 >
                   {checked[i] && "✓"}
                 </div>
-<<<<<<< HEAD
-                <span className={`text-sm text-gray-700 flex-1 ${checked[i] ? "line-through opacity-50" : ""}`}>{g}</span>
-=======
                 {editGoalIdx === i ? (
                   <input
                     className={`${inputCls} flex-1 py-1`}
@@ -350,7 +308,6 @@ const Home = () => {
                 >
                   🗑️
                 </button>
->>>>>>> 4c1984f (update commit 3/24/2026)
               </div>
             ))}
             {goals.length === 0 && <p className="text-gray-400 text-sm text-center py-5">No goals yet.</p>}
@@ -402,11 +359,6 @@ const Home = () => {
                 onChange={(e) => setWorkoutForm({ ...workoutForm, sets: Number(e.target.value) })}
               />
             </div>
-<<<<<<< HEAD
-            <button onClick={addWorkout} className="bg-linear-to-r from-orange-400 to-orange-600 text-white font-semibold px-5 py-2.5 rounded-xl text-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer">
-              + Log Exercise
-            </button>
-=======
             <div className="flex gap-2.5">
               <button onClick={addWorkout} className="bg-linear-to-r from-orange-400 to-orange-600 text-white font-semibold px-5 py-2.5 rounded-xl text-sm hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer">
                 {editWorkoutIdx !== null ? "💾 Save Changes" : "+ Log Exercise"}
@@ -417,7 +369,6 @@ const Home = () => {
                 </button>
               )}
             </div>
->>>>>>> 4c1984f (update commit 3/24/2026)
           </Card>
 
           <Card>
@@ -437,9 +388,6 @@ const Home = () => {
                       <div className="w-6 h-6 bg-linear-to-br from-orange-400 to-orange-600 rounded-lg flex items-center justify-center text-white text-xs font-bold shrink-0">{i + 1}</div>
                       <span className="text-sm font-medium text-gray-800">{w.name}</span>
                     </div>
-<<<<<<< HEAD
-                    <span className="text-xs text-gray-500">{w.reps}r × {w.sets}s</span>
-=======
                     <div className="flex items-center gap-2">
                       <span className="text-xs text-gray-500">{w.reps}r × {w.sets}s</span>
                       <button
@@ -450,7 +398,6 @@ const Home = () => {
                         ✏️
                       </button>
                     </div>
->>>>>>> 4c1984f (update commit 3/24/2026)
                   </div>
                 ))}
                 {workouts.length === 0 && <p className="text-gray-400 text-sm py-3.5">No exercises logged yet.</p>}

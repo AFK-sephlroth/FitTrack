@@ -4,6 +4,8 @@ import InputField from "../components/common/InputField";
 import PrimaryButton from "../components/common/PrimaryButton";
 import Card from "../components/common/Card";
 
+const BACKEND_PORT = import.meta.env.VITE_BACKEND_API_PORT;
+
 const Login = () => {
   const navigate = useNavigate();
 
@@ -12,20 +14,35 @@ const Login = () => {
     password: ""
   });
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     if (Object.values(loginForm).some((data) => data === "")) {
       alert("All fields are required!");
       return;
     }
 
-    const role = loginForm.username === "admin" && loginForm.password === "admin"
-      ? "admin"
-      : "user";
+    try {
+      const payload = { ...loginForm };
 
-    sessionStorage.setItem("token", "mock-token");
-    sessionStorage.setItem("fittrack_user", JSON.stringify({ username: loginForm.username, role }));
-    navigate(role === "admin" ? "/admin" : "/home");
+      const response = await fetch(`${BACKEND_PORT}/api/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json();
+      console.log(result.user);
+
+      sessionStorage.setItem("token", result.token);
+      sessionStorage.setItem("fittrack_user", JSON.stringify(result.user));
+      navigate(result.user.role === "admin" ? "/admin" : "/home");
+
+    } catch (error) {
+      console.log(error);
+      alert(error);
+    }
   };
 
   return (

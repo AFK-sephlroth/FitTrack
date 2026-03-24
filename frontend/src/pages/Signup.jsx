@@ -20,7 +20,7 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      if (Object.values(signupForm).some((data) => data !== "")) {
+      if (Object.values(signupForm).every((data) => data !== "")) {
         if (signupForm.password === signupForm.confirmPassword) {
 
           // Destructuring with REST syntax — removes confirmPassword before sending to API
