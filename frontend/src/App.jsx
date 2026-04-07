@@ -14,11 +14,11 @@ const App = () => {
         <Route path='/'       element={<Login />} />
         <Route path='/signup' element={<Signup />} />
 
-        {/*<Route element={<PrivateRoutes />}>*/}
+        <Route element={<PrivateRoutes />}>
           <Route path='/home'  element={<Home />} />
           <Route path='/admin' element={<Admin />} />
           <Route path='/about' element={<About />} />
-        {/*</Route>*/}
+        </Route>
 
         <Route path='*' element={<Navigate to='/' replace />} />
       </Routes>

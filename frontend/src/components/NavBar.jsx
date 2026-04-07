@@ -7,8 +7,13 @@ const NavBar = () => {
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    const stored = JSON.parse(sessionStorage.getItem("fittrack_user") || "{}");
-    setUser(stored);
+    try {
+      const raw = sessionStorage.getItem("fittrack_user");
+      const stored = raw && raw !== "undefined" ? JSON.parse(raw) : {};
+      setUser(stored);
+    } catch {
+      setUser({});
+    }
   }, [location]);
 
   const handleLogout = () => {

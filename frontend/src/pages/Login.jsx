@@ -25,20 +25,37 @@ const Login = () => {
       const payload = { ...loginForm };
 
       const response = await fetch(`${BACKEND_PORT}/api/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload)
-      });
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(payload)
+});
 
-      const result = await response.json();
-      console.log(result.user);
+const text = await response.text();
 
-      sessionStorage.setItem("token", result.token);
-      sessionStorage.setItem("fittrack_user", JSON.stringify(result.user));
-      navigate(result.user.role === "admin" ? "/admin" : "/home");
+let result;
+try {
+  result = JSON.parse(text);
+} catch {
+  alert("Server error (not JSON)");
+  console.error(text);
+  return;
+}
 
+console.log("LOGIN RESPONSE:", result);
+
+const user = result.user || result;
+
+if (!user || !user.role) {
+  alert("Login failed: No role found");
+  return;
+}
+
+sessionStorage.setItem("token", result.token);
+sessionStorage.setItem("fittrack_user", JSON.stringify(user));
+
+navigate(user.role === "admin" ? "/admin" : "/home");
     } catch (error) {
       console.log(error);
       alert(error);
