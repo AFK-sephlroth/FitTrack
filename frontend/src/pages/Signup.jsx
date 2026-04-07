@@ -38,6 +38,7 @@ const Signup = () => {
           console.log(result.user);
 
           sessionStorage.setItem("token", result.token);
+          sessionStorage.setItem("fittrack_user", JSON.stringify(result.user));
           navigate("/home");
 
         } else {

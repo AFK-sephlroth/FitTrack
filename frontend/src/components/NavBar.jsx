@@ -9,7 +9,7 @@ const NavBar = () => {
   useEffect(() => {
     const stored = JSON.parse(sessionStorage.getItem("fittrack_user") || "{}");
     setUser(stored);
-  }, []);
+  }, [location]);
 
   const handleLogout = () => {
     sessionStorage.removeItem("fittrack_user");
