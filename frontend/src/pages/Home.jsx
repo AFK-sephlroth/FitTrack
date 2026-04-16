@@ -6,6 +6,13 @@ import { useState, useEffect } from "react";
 
 const API = import.meta.env.VITE_BACKEND_API_PORT;
 
+// Return the stored JWT token for authenticated requests
+const getToken = () => sessionStorage.getItem("token") || "";
+const authHeaders = () => ({
+  "Content-Type": "application/json",
+  "Authorization": `Bearer ${getToken()}`
+});
+
 const Home = () => {
   // ── Goals ──────────────────────────────────────────────────────
   const [goals, setGoals]                 = useState([]);
@@ -43,7 +50,7 @@ const Home = () => {
   // ── Load all data from DB on mount ─────────────────────────────
   useEffect(() => {
     // Load goals
-    fetch(`${API}/api/goals`)
+    fetch(`${API}/api/goals`, { headers: authHeaders() })
       .then(r => r.json())
       .then(res => {
         const data = res.data || [];
@@ -53,13 +60,13 @@ const Home = () => {
       .catch(console.error);
 
     // Load workouts
-    fetch(`${API}/api/workouts`)
+    fetch(`${API}/api/workouts`, { headers: authHeaders() })
       .then(r => r.json())
       .then(res => setWorkouts(res.data || []))
       .catch(console.error);
 
     // Load schedules → rebuild events object { "YYYY-MM-DD": [{id, event}, ...] }
-    fetch(`${API}/api/schedules`)
+    fetch(`${API}/api/schedules`, { headers: authHeaders() })
       .then(r => r.json())
       .then(res => {
         const schedules = res.data || [];
@@ -79,7 +86,7 @@ const Home = () => {
     try {
       const res = await fetch(`${API}/api/goals`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: authHeaders(),
         body: JSON.stringify({ goal: newGoal.trim() })
       });
       const result = await res.json();
@@ -95,7 +102,7 @@ const Home = () => {
     try {
       await fetch(`${API}/api/goals/${editGoalId}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: authHeaders(),
         body: JSON.stringify({ goal: editGoalVal.trim() })
       });
       setGoals(g => g.map(v => v.id === editGoalId ? { ...v, goal: editGoalVal.trim() } : v));
@@ -106,7 +113,7 @@ const Home = () => {
 
   const deleteGoal = async (id, idx) => {
     try {
-      await fetch(`${API}/api/goals/${id}`, { method: "DELETE" });
+      await fetch(`${API}/api/goals/${id}`, { method: "DELETE", headers: authHeaders() });
       setGoals(g => g.filter((_, i) => i !== idx));
       setChecked(c => c.filter((_, i) => i !== idx));
     } catch (error) { alert(error); }
@@ -119,7 +126,7 @@ const Home = () => {
       if (editWorkoutId !== null) {
         await fetch(`${API}/api/workouts/${editWorkoutId}`, {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: authHeaders(),
           body: JSON.stringify(workoutForm)
         });
         setWorkouts(w => w.map(item => item.id === editWorkoutId ? { ...item, ...workoutForm } : item));
@@ -129,7 +136,7 @@ const Home = () => {
         if (isDuplicate) { alert(`"${workoutForm.name}" is already in your workout list.`); return; }
         const res = await fetch(`${API}/api/workouts`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: authHeaders(),
           body: JSON.stringify(workoutForm)
         });
         const result = await res.json();
@@ -151,7 +158,7 @@ const Home = () => {
     try {
       const res = await fetch(`${API}/api/schedules`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: authHeaders(),
         body: JSON.stringify({ date_key: selectedDateKey, event: newEvent.trim() })
       });
       const result = await res.json();
@@ -165,7 +172,7 @@ const Home = () => {
 
   const removeEvent = async (key, scheduleId, idx) => {
     try {
-      await fetch(`${API}/api/schedules/${scheduleId}`, { method: "DELETE" });
+      await fetch(`${API}/api/schedules/${scheduleId}`, { method: "DELETE", headers: authHeaders() });
       setEvents(ev => {
         const updated = [...(ev[key] || [])];
         updated.splice(idx, 1);

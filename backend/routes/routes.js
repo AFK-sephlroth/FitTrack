@@ -4,6 +4,7 @@ import goal_controllers     from "../controllers/goalControllers.js";
 import workout_controllers  from "../controllers/workoutControllers.js";
 import schedule_controllers from "../controllers/scheduleControllers.js";
 import review_controllers   from "../controllers/reviewControllers.js";
+import authenticate         from "../middleware/auth.js";
 import jwt from "jsonwebtoken";
 
 const router = express.Router();
@@ -23,29 +24,29 @@ router.get("/protected", (request, response) => {
     }
 });
 
-/* ── User / Auth Routes ─────────────────────────────────────────── */
+/* ── User / Auth Routes (public) ────────────────────────────────── */
 router.post("/signup",           user_controllers.signup);
 router.post("/login",            user_controllers.login);
 router.get("/users",             user_controllers.get);
 router.put("/users/:id",         user_controllers.edit);
 router.delete("/users/:id",      user_controllers.delete);
 
-/* ── Goal Routes ────────────────────────────────────────────────── */
-router.post("/goals",            goal_controllers.insert);
-router.get("/goals",             goal_controllers.get);
-router.put("/goals/:id",         goal_controllers.edit);
-router.delete("/goals/:id",      goal_controllers.delete);
+/* ── Goal Routes (protected — scoped to logged-in user) ─────────── */
+router.post("/goals",            authenticate, goal_controllers.insert);
+router.get("/goals",             authenticate, goal_controllers.get);
+router.put("/goals/:id",         authenticate, goal_controllers.edit);
+router.delete("/goals/:id",      authenticate, goal_controllers.delete);
 
-/* ── Workout Routes ─────────────────────────────────────────────── */
-router.post("/workouts",         workout_controllers.insert);
-router.get("/workouts",          workout_controllers.get);
-router.put("/workouts/:id",      workout_controllers.edit);
-router.delete("/workouts/:id",   workout_controllers.delete);
+/* ── Workout Routes (protected — scoped to logged-in user) ──────── */
+router.post("/workouts",         authenticate, workout_controllers.insert);
+router.get("/workouts",          authenticate, workout_controllers.get);
+router.put("/workouts/:id",      authenticate, workout_controllers.edit);
+router.delete("/workouts/:id",   authenticate, workout_controllers.delete);
 
-/* ── Schedule Routes ────────────────────────────────────────────── */
-router.post("/schedules",        schedule_controllers.insert);
-router.get("/schedules",         schedule_controllers.get);
-router.delete("/schedules/:id",  schedule_controllers.delete);
+/* ── Schedule Routes (protected — scoped to logged-in user) ─────── */
+router.post("/schedules",        authenticate, schedule_controllers.insert);
+router.get("/schedules",         authenticate, schedule_controllers.get);
+router.delete("/schedules/:id",  authenticate, schedule_controllers.delete);
 
 /* ── Review / Feedback Routes ───────────────────────────────────── */
 router.post("/reviews",          review_controllers.insert);

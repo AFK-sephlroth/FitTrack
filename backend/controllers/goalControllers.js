@@ -4,7 +4,8 @@ const goal_controllers = {
     insert: async (request, response) => {
         try {
             const { goal } = request.body;
-            const result = await goal_models.addGoal(goal);
+            const user_id = request.user.id;
+            const result = await goal_models.addGoal(goal, user_id);
             if (result) {
                 response.status(201).json({ message: "Goal added!", insertId: result.insertId });
                 return;
@@ -15,9 +16,10 @@ const goal_controllers = {
         }
     },
 
-    get: async (_request, response) => {
+    get: async (request, response) => {
         try {
-            const result = await goal_models.getGoals();
+            const user_id = request.user.id;
+            const result = await goal_models.getGoals(user_id);
             response.status(200).json({ data: result });
         } catch (error) {
             response.status(500).json({ message: `Error: ${error.message}` });
@@ -28,7 +30,8 @@ const goal_controllers = {
         try {
             const id = request.params.id;
             const { goal } = request.body;
-            const result = await goal_models.editGoal(goal, id);
+            const user_id = request.user.id;
+            const result = await goal_models.editGoal(goal, id, user_id);
             if (result.affectedRows === 1) {
                 response.status(200).json({ message: "Goal updated successfully" });
             } else {
@@ -42,7 +45,8 @@ const goal_controllers = {
     delete: async (request, response) => {
         try {
             const id = request.params.id;
-            const result = await goal_models.deleteGoal(id);
+            const user_id = request.user.id;
+            const result = await goal_models.deleteGoal(id, user_id);
             if (result.affectedRows === 1) {
                 response.status(200).json({ message: "Goal deleted successfully" });
             } else {
