@@ -6,29 +6,33 @@ const API = import.meta.env.VITE_BACKEND_API_PORT;
 const AVATAR_COLORS = ["bg-orange-400","bg-sky-400","bg-purple-400","bg-green-400","bg-rose-400","bg-teal-400","bg-indigo-400","bg-yellow-400"];
 
 const Admin = () => {
-  const [users, setUsers]       = useState([]);
-  const [reviews, setReviews]   = useState([]);
-  const [loading, setLoading]   = useState(true);
+  const [users, setUsers]     = useState([]);
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Load users
     fetch(`${API}/api/users`)
       .then(r => r.json())
       .then(res => setUsers(res.data || []))
       .catch(console.error);
 
-    // Load reviews
     fetch(`${API}/api/reviews`)
       .then(r => r.json())
       .then(res => { setReviews(res.data || []); setLoading(false); })
       .catch(() => setLoading(false));
   }, []);
 
-  const deleteUser = async (id) => {
-    if (!confirm("Delete this user?")) return;
+  const toggleStatus = async (id, currentStatus) => {
+    const newStatus = currentStatus === "suspended" ? "active" : "suspended";
+    const action    = newStatus === "suspended" ? "suspend" : "reactivate";
+    if (!confirm(`Are you sure you want to ${action} this user?`)) return;
     try {
-      await fetch(`${API}/api/users/${id}`, { method: "DELETE" });
-      setUsers(u => u.filter(user => user.id !== id));
+      await fetch(`${API}/api/users/${id}/status`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus })
+      });
+      setUsers(u => u.map(user => user.id === id ? { ...user, status: newStatus } : user));
     } catch (error) { alert(error); }
   };
 
@@ -63,15 +67,16 @@ const Admin = () => {
                 <th className={thCls}>Username</th>
                 <th className={thCls}>Age</th>
                 <th className={thCls}>Role</th>
+                <th className={thCls}>Status</th>
                 <th className={thCls}>Action</th>
               </tr>
             </thead>
             <tbody>
               {users.map((u, i) => (
-                <tr key={u.id} className="hover:bg-orange-50 transition-colors">
+                <tr key={u.id} className={`transition-colors ${u.status === "suspended" ? "bg-gray-50 opacity-70" : "hover:bg-orange-50"}`}>
                   <td className={tdCls}>
                     <div className="flex items-center gap-2.5">
-                      <div className={`w-8 h-8 rounded-full ${AVATAR_COLORS[i % AVATAR_COLORS.length]} flex items-center justify-center text-white font-bold text-sm shrink-0`}>
+                      <div className={`w-8 h-8 rounded-full ${AVATAR_COLORS[i % AVATAR_COLORS.length]} flex items-center justify-center text-white font-bold text-sm shrink-0 ${u.status === "suspended" ? "grayscale" : ""}`}>
                         {u.fullname[0]}
                       </div>
                       <strong className="text-gray-800">{u.fullname}</strong>
@@ -85,19 +90,29 @@ const Admin = () => {
                     </span>
                   </td>
                   <td className={tdCls}>
+                    <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold ${u.status === "suspended" ? "bg-red-100 text-red-600" : "bg-emerald-100 text-emerald-700"}`}>
+                      <span className={`w-1.5 h-1.5 rounded-full ${u.status === "suspended" ? "bg-red-400" : "bg-emerald-400"}`} />
+                      {u.status === "suspended" ? "Suspended" : "Active"}
+                    </span>
+                  </td>
+                  <td className={tdCls}>
                     {u.role !== "admin" && (
                       <button
-                        onClick={() => deleteUser(u.id)}
-                        className="text-xs text-red-500 hover:text-red-700 font-semibold bg-red-50 hover:bg-red-100 px-3 py-1 rounded-lg transition-all cursor-pointer border-none"
+                        onClick={() => toggleStatus(u.id, u.status)}
+                        className={`text-xs font-semibold px-3 py-1.5 rounded-lg border-none cursor-pointer transition-all
+                          ${u.status === "suspended"
+                            ? "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
+                            : "bg-orange-50 text-orange-700 hover:bg-orange-100"
+                          }`}
                       >
-                        🗑 Delete
+                        {u.status === "suspended" ? "✅ Reactivate" : "⏸ Suspend"}
                       </button>
                     )}
                   </td>
                 </tr>
               ))}
               {users.length === 0 && (
-                <tr><td colSpan={5} className="text-center py-6 text-gray-400 text-sm">No users found.</td></tr>
+                <tr><td colSpan={6} className="text-center py-6 text-gray-400 text-sm">No users found.</td></tr>
               )}
             </tbody>
           </table>
