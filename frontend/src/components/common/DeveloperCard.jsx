@@ -5,7 +5,7 @@ const DeveloperCard = ({ initials, name, avatarColor }) => {
         {initials}
       </div>
       <p className="text-xs font-bold text-gray-800 leading-snug">{name}</p>
-      <p className="text-xs text-orange-500 font-semibold mt-0.5">Developer</p>
+      <p className="text-xs text-orange-500 font-semibold mt-0.5">{role}</p>
     </article>
   );
 };
