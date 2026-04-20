@@ -1,4 +1,4 @@
-const DeveloperCard = ({ initials, name, avatarColor }) => {
+const DeveloperCard = ({ initials, name, avatarColor, role }) => {
   return (
     <article className="bg-orange-50 rounded-2xl p-5 text-center border border-orange-100 hover:-translate-y-1 hover:shadow-lg transition-all">
       <div className={`w-13 h-13 rounded-full ${avatarColor} flex items-center justify-center text-white font-black text-base mx-auto mb-3 shadow-md`}>
