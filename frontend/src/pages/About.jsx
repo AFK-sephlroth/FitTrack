@@ -15,11 +15,11 @@ const About = () => {
   ];
 
   const developers = [
-    { initials: "ET", name: "Elijah Red Tingzon", avatarColor: "bg-orange-500" },
-    { initials: "DR", name: "Daniel Refamonte",   avatarColor: "bg-sky-500"    },
-    { initials: "DM", name: "Danisa Medallo",     avatarColor: "bg-purple-500" },
-    { initials: "CA", name: "CJ Alvarado",        avatarColor: "bg-green-500"  },
-    { initials: "HM", name: "Hanna Magbunay",     avatarColor: "bg-rose-500"   },
+    { initials: "ET", name: "Elijah Red Tingzon", avatarColor: "bg-orange-500", role: "Developer" },
+    { initials: "DR", name: "Daniel Refamonte",   avatarColor: "bg-sky-500", role: "Project Leader" },
+    { initials: "DM", name: "Danisa Medallo",     avatarColor: "bg-purple-500", role: "Frontend Adviser" },
+    { initials: "CA", name: "CJ Alvarado",        avatarColor: "bg-green-500", role: "Tester" },
+    { initials: "HM", name: "Hanna Magbunay",     avatarColor: "bg-rose-500", role: "Documentation" },
   ];
 
   const user     = JSON.parse(sessionStorage.getItem("fittrack_user") || "{}");

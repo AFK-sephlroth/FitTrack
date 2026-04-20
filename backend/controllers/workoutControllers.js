@@ -4,7 +4,8 @@ const workout_controllers = {
     insert: async (request, response) => {
         try {
             const { name, reps, sets } = request.body;
-            const result = await workout_models.addWorkout(name, reps, sets);
+            const user_id = request.user.id;
+            const result = await workout_models.addWorkout(name, reps, sets, user_id);
             if (result) {
                 response.status(201).json({ message: "Workout added!", insertId: result.insertId });
                 return;
@@ -15,9 +16,10 @@ const workout_controllers = {
         }
     },
 
-    get: async (_request, response) => {
+    get: async (request, response) => {
         try {
-            const result = await workout_models.getWorkouts();
+            const user_id = request.user.id;
+            const result = await workout_models.getWorkouts(user_id);
             response.status(200).json({ data: result });
         } catch (error) {
             response.status(500).json({ message: `Error: ${error.message}` });
@@ -28,7 +30,8 @@ const workout_controllers = {
         try {
             const id = request.params.id;
             const { name, reps, sets } = request.body;
-            const result = await workout_models.editWorkout(name, reps, sets, id);
+            const user_id = request.user.id;
+            const result = await workout_models.editWorkout(name, reps, sets, id, user_id);
             if (result.affectedRows === 1) {
                 response.status(200).json({ message: "Workout updated successfully" });
             } else {
@@ -42,7 +45,8 @@ const workout_controllers = {
     delete: async (request, response) => {
         try {
             const id = request.params.id;
-            const result = await workout_models.deleteWorkout(id);
+            const user_id = request.user.id;
+            const result = await workout_models.deleteWorkout(id, user_id);
             if (result.affectedRows === 1) {
                 response.status(200).json({ message: "Workout deleted successfully" });
             } else {
