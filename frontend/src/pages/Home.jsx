@@ -189,10 +189,10 @@ const Home = () => {
       const res = await fetch(`${API}/api/reviews`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: user.username || "anonymous", rating, feedback })
+        body: JSON.stringify({ user_id: user.id, username: user.username || "anonymous", rating, feedback })
       });
       const result = await res.json();
-      console.log(result);
+      if (!res.ok) { alert(result.message || "Failed to submit review."); return; }
       setSubmitted(true);
     } catch (error) { alert(error); }
   };
