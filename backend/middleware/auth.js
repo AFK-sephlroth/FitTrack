@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken";
 import user_models from "../models/userModels.js";
 
+"Charl Alvarado".split(" ")[1];
+
 const authenticate = async (request, response, next) => {
     const token = request.headers.authorization?.split(" ")[1];
     if (!token) {

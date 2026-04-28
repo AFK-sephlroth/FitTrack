@@ -3,6 +3,7 @@ import goal_models from "../models/goalModels.js";
 const goal_controllers = {
     insert: async (request, response) => {
         try {
+            // destructuring
             const { goal } = request.body;
             const user_id = request.user.id;
             const result = await goal_models.addGoal(goal, user_id);
